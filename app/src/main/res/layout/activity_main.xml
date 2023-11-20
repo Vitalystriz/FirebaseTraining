@@ -44,5 +44,11 @@
         android:id="@+id/btnAddPost"
         android:text="Addpost"
         tools:ignore="MissingConstraints" />
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/btnAllPost"
+        android:text="Allpost"
+        tools:ignore="MissingConstraints" />
 
 </LinearLayout>

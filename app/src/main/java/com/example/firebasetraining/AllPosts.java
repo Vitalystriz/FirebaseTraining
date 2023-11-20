@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 
 public class AllPosts extends AppCompatActivity {
     ArrayList<Post> posts;
-    PostAdadpter postAdadpter;
+    PostAdadpter postAdapter;
 
     ListView lv;
     FirebaseDatabase db;
@@ -27,10 +29,13 @@ public class AllPosts extends AppCompatActivity {
         setContentView(R.layout.activity_all_posts);
         lv  = findViewById(R.id.lv);
         db = FirebaseDatabase.getInstance();
-        postRef
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        postsRef = db.getReference("posts");
+        retrieveData(false);
+
 
     }
-    public void retrieveData() {
+    public void retrieveData(boolean filterOnMyPost) {
         // Initialize the ArrayList to store retrieved posts
         posts = new ArrayList<>();
 
@@ -46,17 +51,19 @@ public class AllPosts extends AppCompatActivity {
                     // Deserialize the post object and add it to the ArrayList
                     Post post = postSnapshot.getValue(Post.class);
                     if (post != null) {
+
                         posts.add(post);
                     }
                 }
                 // Update the ListView with the retrieved posts
-                postAdapter = new PostAdapter(AllPosts.this,0,0, posts);
-                listView.setAdapter(postAdapter);//get view start
+                postAdapter = new PostAdadpter(AllPosts.this,0,0, posts);
+                lv.setAdapter(postAdapter);//get view start
+                Toast.makeText(AllPosts.this, "oooooooooo", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Handle database errors if any
+                Toast.makeText(AllPosts.this, "yui", Toast.LENGTH_SHORT).show();
             }
         });
     }

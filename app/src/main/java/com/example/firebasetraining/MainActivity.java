@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     FirebaseAuth mAuth;
-    Button btnRegister, btnLogin,btnLogout,btnAddPost;
+    Button btnRegister, btnLogin,btnLogout,btnAddPost,btnAllPost;
 
 
     @SuppressLint("MissingInflatedId")
@@ -29,11 +29,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnRegister = findViewById(R.id.btnRegister);
         btnLogin = findViewById(R.id.btnLogin);
         btnAddPost = findViewById(R.id.btnAddPost);
+        btnAllPost = findViewById(R.id.btnAllPost);
         btnRegister.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
         btnLogout.setOnClickListener(this);
         btnAddPost.setOnClickListener(this);
+        btnAllPost.setOnClickListener(this);
 
     }
 
@@ -68,6 +70,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if(view ==btnAddPost){
             Intent intent = new Intent(this, AddPost.class);
+            startActivity(intent);
+        }
+        if(view ==btnAllPost){
+            Intent intent = new Intent(this, AllPosts.class);
             startActivity(intent);
         }
         if(view==btnRegister){
